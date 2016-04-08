@@ -126,6 +126,7 @@ class NativeDependenciesResolverTask extends DefaultTask {
         Dependency dependency = project.dependencies.create(artifact + DEPENDENCY_SUFFIX)
         Configuration configuration = project.configurations.detachedConfiguration(dependency)
         configuration.setTransitive(false)
+        configuration.resolutionStrategy.cacheChangingModulesFor 0, "seconds"
 
         configuration.files.each { file ->
             if (file.isFile() && file.name.endsWith(ARTIFACT_FILE_EXT)) {
