@@ -22,6 +22,11 @@ import groovy.transform.Canonical
  */
 @Canonical class NativeDep implements Serializable {
     private static final long serialVersionUID = -4620179198905383279L;
+    public static final int CACHE_PERIOD_TIME_VALUE = 24
+    public static final String CACHE_PERIOD_TIME_UNITS = "hours"
+
     String dependency
     boolean shouldPrefixWithLib = true
+    int timeValue = CACHE_PERIOD_TIME_VALUE
+    String timeUnits = CACHE_PERIOD_TIME_UNITS
 }

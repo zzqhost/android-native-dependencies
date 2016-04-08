@@ -85,7 +85,7 @@ class NativeDependenciesResolverTask extends DefaultTask {
         }
 
         try {
-            def map = downloadDep(artifact.dependency)
+            def map = downloadDep(artifact.dependency, artifact.timeValue, artifact.timeUnits)
             if (!map.isEmpty()) {
                 copyToTarget(map.depFile, filter, map.depName, artifact.shouldPrefixWithLib)
 
@@ -119,14 +119,14 @@ class NativeDependenciesResolverTask extends DefaultTask {
      * @return
      * the dependency {@link java.io.File} or null
      */
-    def downloadDep(String artifact) {
+    def downloadDep(String artifact, int timeValue, String timeUnits) {
         log.info "Trying to resolve artifact '$artifact' using defined repositories"
 
         def map = [:]
         Dependency dependency = project.dependencies.create(artifact + DEPENDENCY_SUFFIX)
         Configuration configuration = project.configurations.detachedConfiguration(dependency)
         configuration.setTransitive(false)
-        configuration.resolutionStrategy.cacheChangingModulesFor 0, "seconds"
+        configuration.resolutionStrategy.cacheChangingModulesFor timeValue, timeUnits
 
         configuration.files.each { file ->
             if (file.isFile() && file.name.endsWith(ARTIFACT_FILE_EXT)) {

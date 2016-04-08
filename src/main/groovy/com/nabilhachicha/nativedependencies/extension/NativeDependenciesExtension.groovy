@@ -27,6 +27,8 @@ class NativeDependenciesExtension {
      * prefixing the artifact with 'lib'
      */
     boolean addLibPrefixToArtifact = true
+    int cachePeriodTimeValue = NativeDep.CACHE_PERIOD_TIME_VALUE
+    String cachePeriodTimeUnits = NativeDep.CACHE_PERIOD_TIME_UNITS
 
     /**
      * add {@code dep} to the list of dependencies to retrieve
@@ -40,6 +42,8 @@ class NativeDependenciesExtension {
 
         } else {// reset to default
             addLibPrefixToArtifact = true;
+            cachePeriodTimeValue = NativeDep.CACHE_PERIOD_TIME_VALUE
+            cachePeriodTimeUnits = NativeDep.CACHE_PERIOD_TIME_UNITS
         }
 
         def dependency = dep.tokenize(CONFIGURATION_SEPARATOR)
@@ -48,11 +52,11 @@ class NativeDependenciesExtension {
 
         } else if (dependency.size() == 3) {//add classifier
             classifiers.each {
-                dependencies << new NativeDep (dependency: dep + CONFIGURATION_SEPARATOR + it, shouldPrefixWithLib: addLibPrefixToArtifact)
+                dependencies << new NativeDep (dependency: dep + CONFIGURATION_SEPARATOR + it, shouldPrefixWithLib: addLibPrefixToArtifact, timeValue: cachePeriodTimeValue, timeUnits: cachePeriodTimeUnits)
             }
 
         } else {
-            dependencies << new NativeDep (dependency: dep, shouldPrefixWithLib: addLibPrefixToArtifact)
+            dependencies << new NativeDep (dependency: dep, shouldPrefixWithLib: addLibPrefixToArtifact, timeValue: cachePeriodTimeValue, timeUnits: cachePeriodTimeUnits)
         }
     }
 
@@ -71,16 +75,18 @@ class NativeDependenciesExtension {
 
         } else {// reset to default
             addLibPrefixToArtifact = true;
+            cachePeriodTimeValue = NativeDep.CACHE_PERIOD_TIME_VALUE
+            cachePeriodTimeUnits = NativeDep.CACHE_PERIOD_TIME_UNITS
         }
 
         String temp = m['group'] + CONFIGURATION_SEPARATOR + m['name'] + CONFIGURATION_SEPARATOR + m['version']
 
-        if(!m.containsKey('classifier')) {
+        if (!m.containsKey('classifier')) {
             classifiers.each {
-                dependencies << new NativeDep (dependency: temp + CONFIGURATION_SEPARATOR + it, shouldPrefixWithLib: addLibPrefixToArtifact)
+                dependencies << new NativeDep (dependency: temp + CONFIGURATION_SEPARATOR + it, shouldPrefixWithLib: addLibPrefixToArtifact, timeValue: cachePeriodTimeValue, timeUnits: cachePeriodTimeUnits)
             }
         } else {
-            dependencies << new NativeDep (dependency: temp + CONFIGURATION_SEPARATOR + m['classifier'], shouldPrefixWithLib: addLibPrefixToArtifact)
+            dependencies << new NativeDep (dependency: temp + CONFIGURATION_SEPARATOR + m['classifier'], shouldPrefixWithLib: addLibPrefixToArtifact, timeValue: cachePeriodTimeValue, timeUnits: cachePeriodTimeUnits)
         }
     }
 }

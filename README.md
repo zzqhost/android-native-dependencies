@@ -81,6 +81,20 @@ native_dependencies {
 ```
 in this example the ARM dependency will have the name `snappydb-native.so` rather than `libsnappydb-native.so`
 
+- Sets cache time:
+
+You may want to Sets the length of time that changing modules will be cached, by default it's 24 hours.
+```groovy
+native_dependencies {
+    artifact ('com.snappydb:snappydb-native:0.2.+:armeabi') {
+           cachePeriodTimeValue=0
+           cachePeriodTimeUnits="seconds"
+    }
+}
+```
+in this example the dependency will update in each run.
+
+
 Tasks
 =====
 
