@@ -21,6 +21,7 @@ import groovy.transform.Canonical
  * POGO that represents an artifact to resolve by the Plugin
  */
 @Canonical class NativeDep implements Serializable {
+    private static final long serialVersionUID = -4620179198905383279L;
     String dependency
     boolean shouldPrefixWithLib = true
 }
