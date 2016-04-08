@@ -46,6 +46,7 @@ class NativeDependenciesPlugin implements Plugin<Project> {
                 task.setGroup(TASK_GROUP)
                 task.
                 	dependencies = project.native_dependencies.dependencies
+                task.outputs.upToDateWhen { false }
 
                 project.tasks.findByName(TASK_ATTACH_TO_LIFECYCLE).dependsOn task
             }
