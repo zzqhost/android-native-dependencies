@@ -157,7 +157,7 @@ class NativeDependenciesResolverTask extends DefaultTask {
             into "$jniLibs" + File.separator + "$architecture"
 
             rename { fileName ->
-                if (shouldPrefixWithLib) {
+                if (shouldPrefixWithLib && !depName.startsWith("lib")) {
                     "lib" + depName + ".so"
                 } else {
                     depName + ".so"
