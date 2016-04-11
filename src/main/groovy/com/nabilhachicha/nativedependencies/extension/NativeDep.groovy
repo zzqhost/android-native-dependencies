@@ -15,7 +15,9 @@
  */
 
 package com.nabilhachicha.nativedependencies.extension
+
 import groovy.transform.Canonical
+import org.gradle.util.ConfigureUtil
 
 /**
  * POGO that represents an artifact to resolve by the Plugin
@@ -27,6 +29,12 @@ import groovy.transform.Canonical
 
     String dependency
     boolean shouldPrefixWithLib = true
-    int timeValue = CACHE_PERIOD_TIME_VALUE
-    String timeUnits = CACHE_PERIOD_TIME_UNITS
+    int cachePeriodTimeValue = CACHE_PERIOD_TIME_VALUE
+    String cachePeriodTimeUnits = CACHE_PERIOD_TIME_UNITS
+
+    def setProperties (Closure closure) {
+        if (null != closure) {
+            ConfigureUtil.configure(closure, this);
+        }
+    }
 }

@@ -76,15 +76,38 @@ If there is a `lib` in the name, `lib` won't be added again.
 ```groovy
 native_dependencies {
     artifact ('com.snappydb:snappydb-native:0.2.+:armeabi') {
-           addLibPrefixToArtifact=false
+           shouldPrefixWithLib=false
     }
 }
 ```
 in this example the ARM dependency will have the name `snappydb-native.so` rather than `libsnappydb-native.so`
 
+Or you may want to disable all.
+```groovy
+native_dependencies {
+    addLibPrefixToArtifact=false
+
+    artifact ('com.snappydb:snappydb-native:0.2.+:armeabi')
+    artifact ('com.snappydb:snappydb-native:0.2.+:x86')
+}
+```
+
+You are able to use both together as well.
+```groovy
+native_dependencies {
+    addLibPrefixToArtifact=false
+
+    artifact ('com.snappydb:snappydb-native:0.2.+:armeabi') {
+           shouldPrefixWithLib=false
+    }
+    artifact ('com.snappydb:snappydb-native:0.2.+:x86')
+}
+```
+in this example, all other dependencies will be disabled with `lib` except of `'com.snappydb:snappydb-native:0.2.+:armeabi'`.
+
 - Sets `cache` time:
 
-You may want to Sets the length of time that changing modules will be cached, by default it's 24 hours.
+You may want to set the length of time that changing modules will be cached, by default it's 24 hours.
 ```groovy
 native_dependencies {
     artifact ('com.snappydb:snappydb-native:0.2.+:armeabi') {
@@ -95,6 +118,30 @@ native_dependencies {
 ```
 in this example the dependency will update in each run.
 
+Or you may want to set all dependecies with same changing frequences.
+```groovy
+native_dependencies {
+    cacheChangingModulesFor 10, "minutes"
+
+    artifact ('com.snappydb:snappydb-native:0.2.+:armeabi')
+    artifact ('com.snappydb:snappydb-native:0.2.+:x86')
+}
+```
+
+You are able to use both together as well.
+```groovy
+native_dependencies {
+    cacheChangingModulesFor 10, "minutes"
+
+    artifact ('com.snappydb:snappydb-native:0.2.+:armeabi') {
+           cachePeriodTimeValue=0
+           cachePeriodTimeUnits="seconds"
+    }
+
+    artifact ('com.snappydb:snappydb-native:0.2.+:x86')
+}
+```
+in this example, all other dependencies will be set with `10 minutes` except of `'com.snappydb:snappydb-native:0.2.+:armeabi'`.
 
 Tasks
 =====
