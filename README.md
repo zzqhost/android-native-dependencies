@@ -72,6 +72,7 @@ In both notations, *classifier* is optional. this means that when omitted, the p
 - Disable `lib` prefix:
 
 You may want to disable the plugin from prefixing the resolved artifact with `lib`  (when copying into **jniLibs** directory) 
+If there is a `lib` in the name, `lib` won't be added again.
 ```groovy
 native_dependencies {
     artifact ('com.snappydb:snappydb-native:0.2.+:armeabi') {
@@ -81,7 +82,7 @@ native_dependencies {
 ```
 in this example the ARM dependency will have the name `snappydb-native.so` rather than `libsnappydb-native.so`
 
-- Sets cache time:
+- Sets `cache` time:
 
 You may want to Sets the length of time that changing modules will be cached, by default it's 24 hours.
 ```groovy
