@@ -98,7 +98,7 @@ native_dependencies {
     addLibPrefixToArtifact=false
 
     artifact ('com.snappydb:snappydb-native:0.2.+:armeabi') {
-           shouldPrefixWithLib=false
+           shouldPrefixWithLib=true
     }
     artifact ('com.snappydb:snappydb-native:0.2.+:x86')
 }
