@@ -1,5 +1,3 @@
-import org.gradle.api.artifacts.maven.MavenDeployment
-
 buildscript {
     repositories {
         mavenCentral()
@@ -31,7 +29,7 @@ repositories {
 }
 
 group = 'com.nabilhachicha'
-version = '0.1.4'
+version = '0.1.5'
 
 modifyPom {
     project {
