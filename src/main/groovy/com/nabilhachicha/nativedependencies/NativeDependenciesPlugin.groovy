@@ -46,6 +46,8 @@ class NativeDependenciesPlugin implements Plugin<Project> {
                 task.setGroup(TASK_GROUP)
                 task.
                 	dependencies = project.native_dependencies.dependencies
+                task.isClearJniLibsDir = project.native_dependencies.isClearJniLibsDir
+                task.jniLibsDir = project.native_dependencies.jniLibsDir
                 task.outputs.upToDateWhen { false }
 
                 project.tasks.findByName(TASK_ATTACH_TO_LIFECYCLE).dependsOn task

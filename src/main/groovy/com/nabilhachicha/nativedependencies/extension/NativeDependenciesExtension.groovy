@@ -23,6 +23,9 @@ class NativeDependenciesExtension {
     final def classifiers = ['armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64']
     def dependencies = []
 
+    def boolean isClearJniLibsDir = true
+    def jniLibsDir = ""
+
     /**
      * set by a closure to let the user choose if he/she wants to disable
      * prefixing the artifact with 'lib'

@@ -29,10 +29,10 @@ import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.incremental.IncrementalTaskInputs
 
 class NativeDependenciesResolverTask extends DefaultTask {
-    def @Input
-            dependencies
-    def @OutputDirectory
-            jniLibs = project.android.sourceSets.main.jniLibs.srcDirs.first()
+    def @Input dependencies
+    def @Input boolean isClearJniLibsDir
+    def @Input jniLibsDir
+    def @OutputDirectory jniLibs = project.android.sourceSets.main.jniLibs.srcDirs.first()
 
     final String X86_FILTER = "x86"
     final String X86_64_FILTER = "x86_64"
@@ -48,7 +48,17 @@ class NativeDependenciesResolverTask extends DefaultTask {
 
     @TaskAction
     def exec(IncrementalTaskInputs inputs) {
-        project.delete { jniLibs }
+        if (jniLibsDir != null && !jniLibsDir.isEmpty()) {
+            jniLibs = jniLibsDir
+        }
+        if (isClearJniLibsDir == true) {
+            project.delete { jniLibs }
+        }
+
+        log.lifecycle "isClearJniLibsDir:   $isClearJniLibsDir"
+        log.lifecycle "jniLibsDir:      $jniLibsDir"
+        log.lifecycle "jniLibs:         $jniLibs"
+
         log.lifecycle "Executing NativeDependenciesResolverTask"
         dependencies.each { artifact ->
             log.info "Processing artifact: '$artifact.dependency'"
